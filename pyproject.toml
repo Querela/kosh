@@ -29,6 +29,7 @@ dependencies = [
   "graphene",
   "inotify",
   "lxml",
+  "fcs-simple-endpoint",
 ]
 
 [tool.setuptools]
