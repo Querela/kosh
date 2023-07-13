@@ -112,7 +112,8 @@ class kosh:
         ]
 
         for lexicon in instance.lexicons.values():
-            index.update(lexicon)
+            index.update(lexicon)  # TESTING: disable to run "offline"
+            # logger().debug("index.update(%s): %s", lexicon.uid, lexicon)
 
     def serve(self) -> None:
         """

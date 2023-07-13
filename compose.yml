@@ -6,8 +6,9 @@ services:
     environment:
       - ES_SETTING_DISCOVERY_TYPE=single-node
       - ES_SETTING_LOGGER_DEPRECATION_LEVEL=off
-      - ES_SETTING_LOGGER_LEVEL=warn
+      - ES_SETTING_LOGGER_LEVEL=info
       - ES_SETTING_XPACK_SECURITY_ENABLED=false
+    ports: ["127.0.0.1:9200:9200"]
     healthcheck:
       test: curl 127.0.0.1:9200 &>/dev/null
 
