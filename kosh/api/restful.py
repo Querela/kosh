@@ -72,6 +72,7 @@ class restful(_api):
         field = request.args.get("field")
         query = request.args.get("query")
         query_type = request.args.get("query_type")
+        offset = int(request.args.get("offset", 0))
         size = int(request.args.get("size", 10))
 
         if not query:
@@ -82,7 +83,7 @@ class restful(_api):
             return self.__fail("Missing or invalid parameter: 'query_type'")
 
         return self.__data(
-            search.entries(self.lexicon, field, query, query_type, size)
+            search.entries(self.lexicon, field, query, query_type, offset, size)
         )
 
     def spec(self) -> Response:
@@ -168,6 +169,11 @@ class restful(_api):
                                 {
                                     **param("query_type"),
                                     "enum": instance.query_types,
+                                },
+                                {
+                                    **param("offset"),
+                                    "required": False,
+                                    "type": "integer",
                                 },
                                 {
                                     **param("size"),

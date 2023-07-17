@@ -64,6 +64,7 @@ class graphql(_api):
                 field=NonNull(Enum("field", mapping)),
                 query=NonNull(String),
                 query_type=NonNull(Enum("queryType", query_types)),
+                offset=Int(),
                 size=Int(),
             )
 
@@ -72,10 +73,14 @@ class graphql(_api):
             def resolve_ids(self, _, ids):
                 return search.ids(lexicon, ids)
 
-            def resolve_entries(self, _, field, query, query_type, size=10):
+            def resolve_entries(
+                self, _, field, query, query_type, offset=0, size=10
+            ):
                 field = [i for i in mapping if i[1] == field][0][0]
                 query_type = instance.query_types[query_type]
-                return search.entries(lexicon, field, query, query_type, size)
+                return search.entries(
+                    lexicon, field, query, query_type, offset, size
+                )
 
         return Schema(query=query)
 

@@ -39,6 +39,7 @@ class search:
         field: str,
         query: str,
         query_type: str,
+        offset: int,
         size: int,
     ) -> List[Dict[str, str]]:
         """
@@ -55,7 +56,7 @@ class search:
                     "id": item.meta.id,
                     "created": datetime(*map(int, split(r"\D", item.created))),
                 }
-                for item in find[:size].execute()
+                for item in find[offset : offset + size].execute()
             ]
         except Exception:
             return []
